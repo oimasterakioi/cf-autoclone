@@ -1,0 +1,42 @@
+name: update_with_issue
+
+on:
+  issues:
+    types:
+      - opened
+
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download the latest cf-tool
+        run: |
+          wget "https://github.com/xalanq/cf-tool/releases/download/v1.0.0/cf_v1.0.0_linux_64.zip"
+          unzip "cf_v1.0.0_linux_64.zip"
+          cp cf_v1.0.0_linux_64/cf cf
+      - name: Clone the code
+        run: |
+          ./cf clone oimasterfake
+      - name: Delete cf-tool
+        run: |
+          rm cf
+          rm -rf cf_v1.0.0_linux_64
+          rm cf_v1.0.0_linux_64.zip
+      - name: Upload to Github
+        run : |
+          git diff
+          git config --global user.email "oimasterfake@gmail.com"
+          git config --global user.name "oimasterakioi"
+          git add . 
+          git commit -m "upload more code"
+          git push
+      - name: Close Issue
+        uses: peter-evans/close-issue@v2.0.0
+        with:
+          comment: 'OK. Code will update now.'
+
