@@ -25,7 +25,6 @@ jobs:
       - name: Clone the code
         run: |
           ./cf clone oimasterfake
-          ./cf clone OI-Master
       - name: Delete cf-tool
         run: |
           rm cf
