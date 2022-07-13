@@ -24,7 +24,7 @@ jobs:
           cp cf_v1.0.0_linux_64/cf cf
       - name: Clone the code
         run: |
-          ./cf clone oimasterfake
+          ./cf clone oimasterakioi
       - name: Delete cf-tool
         run: |
           rm cf
